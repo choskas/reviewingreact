@@ -6,7 +6,7 @@ console.log('App.js is running!');
 var app = {
     title: 'Loquesea',
     subtitle: 'cosachida',
-    options: ['one', 'two']
+    options: []
 };
 
 function appTitleExist(subtitle) {
@@ -30,26 +30,17 @@ function optionsExist(options) {
     }
 }
 
-var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        app.title
-    ),
-    appTitleExist(app.subtitle),
-    React.createElement(
-        'p',
-        null,
-        app.options.length > 0 ? 'Here they are' : 'No options'
-    ),
-    React.createElement(
-        'ol',
-        null,
-        optionsExist(app.options)
-    )
-);
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault();
+
+    var option = e.target.elements.option.value;
+
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = '';
+        render();
+    }
+};
 
 var user = {
     name: 'yoplai',
@@ -87,51 +78,72 @@ var templateTwo = React.createElement(
     getLocation(user.location)
 );
 
-var count = 0;
-var addOne = function addOne() {
-    count++;
-    renderCounterApp();
-};
-
-var removeOne = function removeOne() {
-    count--;
-    renderCounterApp();
-};
-
-var reset = function reset() {
-    count = 0;
-    renderCounterApp();
+var removeAll = function removeAll() {
+    app.options = [];
+    render();
 };
 
 var appRoot = document.getElementById('app');
 
-var renderCounterApp = function renderCounterApp() {
-    var templateThree = React.createElement(
+var numbers = [55, 22, 333];
+
+var render = function render() {
+    var template = React.createElement(
         'div',
         null,
         React.createElement(
             'h1',
             null,
-            'Count: ',
-            count
+            app.title
+        ),
+        appTitleExist(app.subtitle),
+        React.createElement(
+            'p',
+            null,
+            app.options.length > 0 ? 'Here they are' : 'No options'
+        ),
+        React.createElement(
+            'p',
+            null,
+            app.options.length
         ),
         React.createElement(
             'button',
-            { onClick: addOne },
-            '++'
+            { onClick: removeAll },
+            'Remove all'
+        ),
+        numbers.map(function (i, number) {
+            return React.createElement(
+                'p',
+                { key: i },
+                'number: ',
+                number
+            );
+        }),
+        React.createElement(
+            'ol',
+            null,
+            app.options.map(function (option) {
+                return React.createElement(
+                    'li',
+                    { key: option },
+                    option
+                );
+            })
         ),
         React.createElement(
-            'button',
-            { onClick: removeOne },
-            '--'
-        ),
-        React.createElement(
-            'button',
-            { onClick: reset },
-            'RESET'
+            'form',
+            { onSubmit: onFormSubmit },
+            React.createElement('input', { type: 'text', name: 'option' }),
+            React.createElement(
+                'button',
+                null,
+                'Add Option'
+            )
         )
     );
-    ReactDOM.render(templateThree, appRoot);
+
+    ReactDOM.render(template, appRoot);
 };
 
-renderCounterApp();
+render();

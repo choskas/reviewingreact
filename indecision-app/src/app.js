@@ -4,7 +4,7 @@ console.log('App.js is running!')
 const app = {
     title: 'Loquesea',
     subtitle: 'cosachida',
-    options: ['one', 'two']
+    options: []
 }
 
 function appTitleExist(subtitle){
@@ -19,16 +19,19 @@ function optionsExist(options){
     }
 }
 
-const template = (
-    <div>
-        <h1>{app.title}</h1>
-        {appTitleExist(app.subtitle)}
-        <p>{app.options.length > 0 ? 'Here they are' : 'No options'}</p>
-        <ol>
-            {optionsExist(app.options)}
-        </ol>
-    </div>
-)
+const onFormSubmit = (e)=>{
+    e.preventDefault()
+
+   const option = e.target.elements.option.value
+   
+   if (option){
+       app.options.push(option)
+       e.target.elements.option.value = ''
+       render()
+   }
+}
+
+
 
 
 const user = {
@@ -53,40 +56,47 @@ const templateTwo= (
     </div>
 )
 
-
-let count = 0
-const addOne = () =>{
-     count ++
-     renderCounterApp()
+const removeAll = () =>{
+    app.options = []
+    render()
 }
-
-const removeOne = () =>{
-    count --
-    renderCounterApp()
-}
-
-const reset = () => {
-    count = 0
-    renderCounterApp()
-}
-
-
-
 
 const appRoot = document.getElementById('app')
 
-const renderCounterApp = () => {
-    const templateThree = (
+const numbers = [55, 22 , 333]
+
+const render = () =>{
+    const template = (
         <div>
-            <h1>Count: {count}</h1>
-            <button onClick={addOne}>++</button>
-            <button onClick={removeOne}>--</button>
-            <button onClick={reset}>RESET</button>
+            <h1>{app.title}</h1>
+            {appTitleExist(app.subtitle)}
+            <p>{app.options.length > 0 ? 'Here they are' : 'No options'}</p>
+            <p>{app.options.length}</p>
+            <button onClick={removeAll}>Remove all</button>
+            {
+                numbers.map((i,number) => (
+                    
+                    <p key={i}>number: {number}</p>
+                   
+                ))
+            }
+            <ol>
+                {
+                    app.options.map((option)=>{
+                     return   <li key={option}>{option}</li>
+                    })
+                }
+            </ol>
+            <form onSubmit={onFormSubmit}>
+                <input type='text' name='option'/>
+                <button>Add Option</button>
+                
+            </form>
         </div>
     )
-    ReactDOM.render(templateThree, appRoot)
 
+ReactDOM.render(template, appRoot)
 }
 
-renderCounterApp()
 
+render()
