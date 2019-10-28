@@ -1,13 +1,19 @@
 class IndecisionApp extends React.Component {
+    constructor(props){
+        super(props)
+        this.state ={
+            options : ['una', 'dos', 'tres']
+        }
+    }
     render(){
         const title = 'otra cosa'
         const subtitle = 'el subtitulo'
-        const options = ['una', 'dos', 'tres']
+        
         return (
             <div>
                 <Header title={title} subtitle={subtitle}
                 />
-                <Action/>
+                <Action hasOptions={this.state.options.length > 0}/>
                 <Options options={options} />
                 <AddOption/>
             </div>
@@ -28,10 +34,13 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
+    handleClick(){
+
+    }
     render(){
         return (
             <div>
-                <button> WTF !</button>
+                <button onClick={this.handleClick}> WTF !</button>
             </div>
         )
     }
@@ -40,6 +49,13 @@ class Action extends React.Component {
 
 
 class Options extends React.Component {
+    constructor(props){
+        super(props)
+        this.removeAll = this.removeAll.bind(this)
+    }
+    removeAll (){
+       console.log(this.props.options)
+    }
     render(){
         return(
         <div>
@@ -47,7 +63,7 @@ class Options extends React.Component {
             {this.props.options.map((option) =>(
                 <Option key={option} optionText={option}/>
             ))}
-          
+          <button onClick={this.removeAll}> Remove All</button>
         </div>
         )
     }
@@ -64,10 +80,23 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
+    handleAdd(e){
+        e.preventDefault()
+        const option = e.target.elements.option.value.trim()
+
+        if(option) {
+            alert(option)
+        }
+    }
     render(){
         return(
             <div>
-                <button>Add options xdd</button>
+              <form onSubmit={this.handleAdd}>
+                  <input type='text' name='option'>
+
+                  </input>
+                  <button>Add Option</button>
+              </form>
             </div>
         )
     }
