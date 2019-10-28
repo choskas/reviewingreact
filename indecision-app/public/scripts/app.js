@@ -87,14 +87,27 @@ var appRoot = document.getElementById('app');
 
 var numbers = [55, 22, 333];
 
+var onMakeDecision = function onMakeDecision() {
+    var randomNum = Math.floor(Math.random() * app.options.length);
+    var option = app.options[randomNum];
+    alert(option);
+};
+
 var render = function render() {
+
     var template = React.createElement(
         'div',
         null,
         React.createElement(
             'h1',
             null,
-            app.title
+            app.title,
+            ' '
+        ),
+        React.createElement(
+            'h2',
+            null,
+            'changes'
         ),
         appTitleExist(app.subtitle),
         React.createElement(
@@ -103,14 +116,14 @@ var render = function render() {
             app.options.length > 0 ? 'Here they are' : 'No options'
         ),
         React.createElement(
-            'p',
-            null,
-            app.options.length
+            'button',
+            { onClick: removeAll },
+            ' Remove All  '
         ),
         React.createElement(
             'button',
-            { onClick: removeAll },
-            'Remove all'
+            { disabled: app.options.length === 0, onClick: onMakeDecision },
+            ' Do '
         ),
         numbers.map(function (i, number) {
             return React.createElement(
