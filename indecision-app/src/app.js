@@ -1,110 +1,78 @@
-console.log('App.js is running!')
-
-//JSX - Javascript XML
-const app = {
-    title: 'Loquesea',
-    subtitle: 'cosachida',
-    options: []
-}
-
-function appTitleExist(subtitle){
-    if (subtitle){
-        return <p>Title: {subtitle}</p>
+class IndecisionApp extends React.Component {
+    render(){
+        const title = 'otra cosa'
+        const subtitle = 'el subtitulo'
+        const options = ['una', 'dos', 'tres']
+        return (
+            <div>
+                <Header title={title} subtitle={subtitle}
+                />
+                <Action/>
+                <Options options={options} />
+                <AddOption/>
+            </div>
+        )
     }
 }
 
-function optionsExist(options){
-    if (options.length > 0){
-        return <li>{options}</li> 
+class Header extends React.Component {
+    render(){
+        
+        return (
+            <div>
+                <h1>{this.props.title}</h1>
+                <h2>{this.props.subtitle}</h2>
+            </div>
+        )
     }
 }
 
-const onFormSubmit = (e)=>{
-    e.preventDefault()
-
-   const option = e.target.elements.option.value
-   
-   if (option){
-       app.options.push(option)
-       e.target.elements.option.value = ''
-       render()
-   }
-}
-
-
-
-
-const user = {
-    name: 'yoplai',
-    age: 5000,
-    location: 'mi casa'
-}
-
-function getLocation(location){
-    if(location){
-        return <p>Location: {location}</p>
-    
+class Action extends React.Component {
+    render(){
+        return (
+            <div>
+                <button> WTF !</button>
+            </div>
+        )
     }
 }
 
-const templateTwo= (
-    <div>
-        <h1> {user.name ? user.name : 'Anonymus'} </h1>
 
-        {user.age >= 18 && <p> Age: {user.age}</p>}
-        {getLocation(user.location)}
-    </div>
-)
 
-const removeAll = () =>{
-    app.options = []
-    render()
-}
-
-const appRoot = document.getElementById('app')
-
-const numbers = [55, 22 , 333]
-
-const onMakeDecision = () => {
-    const randomNum = Math.floor(Math.random() * app.options.length)
-    const option = app.options[randomNum]
-    alert(option)
-}
-
-const render = () =>{
-
-    const template = (
+class Options extends React.Component {
+    render(){
+        return(
         <div>
-            <h1>{app.title} </h1>
-            <h2>changes</h2>
-            {appTitleExist(app.subtitle)}
-            <p>{app.options.length > 0 ? 'Here they are' : 'No options'}</p>
-            <button onClick= {removeAll}> Remove All  </button>
-            <button disabled={app.options.length === 0} onClick= {onMakeDecision}> Do </button>
-            {
-                numbers.map((i,number) => (
-                    
-                    <p key={i}>number: {number}</p>
-                   
-                ))
-            }
-            <ol>
-                {
-                    app.options.map((option)=>{
-                     return   <li key={option}>{option}</li>
-                    })
-                }
-            </ol>
-            <form onSubmit={onFormSubmit}>
-                <input type='text' name='option'/>
-                <button>Add Option</button>
-                
-            </form>
+        
+            {this.props.options.map((option) =>(
+                <Option key={option} optionText={option}/>
+            ))}
+          
         </div>
-    )
+        )
+    }
+}
 
-ReactDOM.render(template, appRoot)
+class Option extends React.Component {
+    render(){
+        return(
+        <div>
+         Option: {this.props.optionText}
+        </div>
+        )
+    }
+}
+
+class AddOption extends React.Component {
+    render(){
+        return(
+            <div>
+                <button>Add options xdd</button>
+            </div>
+        )
+    }
 }
 
 
-render()
+
+ReactDOM.render(<IndecisionApp/>, document.getElementById('app'))
