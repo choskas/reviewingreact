@@ -65,9 +65,75 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__person__ = __webpack_require__(2);
+
+
+
 
 console.log('aqui esta pto')
+console.log(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* square */](4))
+
+console.log(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* add */](5,5))
+
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["c" /* name */])
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["b" /* isAdult */](12))
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["a" /* canDrink */](22))
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+console.log('utils is here')
+
+const square = (x)=> x * x
+/* harmony export (immutable) */ __webpack_exports__["b"] = square;
+
+
+const add = (a,b) => a * b
+/* harmony export (immutable) */ __webpack_exports__["a"] = add;
+
+
+
+
+// export {square, add} 
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+const name = 'yoplai'
+/* harmony export (immutable) */ __webpack_exports__["c"] = name;
+
+
+const isAdult = (x) => {
+    if (x>= 18){
+        return true
+    } else {
+        return false
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["b"] = isAdult;
+
+
+const canDrink = (x) =>{
+    if (x>=21){
+        return true
+    } else {
+        return false
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = canDrink;
+
+
 
 /***/ })
 /******/ ]);
