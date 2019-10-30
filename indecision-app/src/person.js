@@ -17,3 +17,5 @@ export const canDrink = (x) =>{
         return false
     }
 }
+
+export default (x) => x>=65
