@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import IndecisionApp from './components/IndecissionApp';
 
-ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
+
+
+ReactDOM.render(<IndecisionApp/>, document.getElementById('app'));
+
 
 // import validator from 'validator'
 
